@@ -20,9 +20,9 @@ export default class BannerDataLoader {
     {
       date: "2021-08-01",
       variants: [
-        { name: "雷鸣雨夜 - 挑灯夜读", path: "2021-08-01-thunderstorm-night" },
-        { name: "晴空流光 - 幻彩花火", path: "2021-08-01-sparkler-night" },
-        { name: "旧城星影 - 极目望远", path: "2021-08-01-starlit-night" },
+        { name: "雷雨楼间 - 不眠之夜", path: "2021-08-01-thunderstorm-night" },
+        { name: "凉风夏夜 - 花火照颜", path: "2021-08-01-sparkler-night" },
+        { name: "晴空流光 - 极目望远", path: "2021-08-01-starlit-night" },
       ],
     },
     {
@@ -32,7 +32,7 @@ export default class BannerDataLoader {
         { name: "阴晴之际 - 凭栏听风", path: "2021-08-02-balcony-windmill" },
       ],
     },
-    { date: "2021-08-09", variants: [{ name: "深秋丰收 - 林间食光" }] },
+    { date: "2021-08-09", variants: [{ name: "林间矮屋 - 秋日盛馔" }] },
     {
       date: "2021-12-03",
       variants: [
@@ -48,7 +48,7 @@ export default class BannerDataLoader {
     },
     { date: "2022-03-14", variants: [{ name: "百草惊春 - 苜蓿之眠" }] },
     { date: "2023-08-13", variants: [{ name: "碧海潜游 - 珊瑚鱼影" }] },
-    { date: "2023-08-21", variants: [{ name: "荒岛漂流 - 鳄鱼浮岛" }] },
+    { date: "2023-08-21", variants: [{ name: "沉船浮岛 - 垂钓问路" }] },
     { date: "2023-10-01", variants: [{ name: "叶舟游江 - 萤火中秋" }] },
     { date: "2023-10-26", variants: [{ name: "林间秋藏 - 猫头鹰监工" }] },
     { date: "2023-11-17", variants: [{ name: "田野牧风 - 枫叶纸鸢" }] },
@@ -58,9 +58,9 @@ export default class BannerDataLoader {
     { date: "2024-06-26", variants: [{ name: "海洋机场 - 启程远洋" }] },
     { date: "2024-09-26", variants: [{ name: "魔法少女 - 飞掠高架桥" }] },
     { date: "2024-12-26", variants: [{ name: "龙吟雪岭 - 缆车飞驰" }] },
-    { date: "2025-04-05", variants: [{ name: "蒲英絮舞 - 魔女腾空" }] },
+    { date: "2025-04-05", variants: [{ name: "蒲英絮舞 - 魔女游春" }] },
     { date: "2025-06-15", variants: [{ name: "清凉一夏 - 水漫街头" }] },
-    { date: "2025-09-10", variants: [{ name: "弯月流星 - 掌心星光" }] },
+    { date: "2025-09-10", variants: [{ name: "弯月流星 - 手捧星光" }] },
     { date: "2026-01-09", variants: [{ name: "雪林候车 - 学子归途" }] },
   ];
 

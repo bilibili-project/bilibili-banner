@@ -147,7 +147,7 @@ export default class Timeline {
 
     // 文字单独放在子 span 中，避免更新时覆盖 SVG 子节点
     const nameText = document.createElement("span");
-    nameText.innerText = item.variants[0].name.split(" - ")[0];
+    nameText.innerText = item.variants[0].name;
     name.appendChild(nameText);
 
     content.appendChild(dateStr);
@@ -195,7 +195,7 @@ export default class Timeline {
           btn.classList.add("active");
 
           // 3. 更新时间轴条目显示的名字
-          nameText.innerText = variant.name.split(" - ")[0];
+          nameText.innerText = variant.name;
 
           // 4. 触发渲染
           this.engine.updateData(variant.data);
@@ -246,7 +246,7 @@ export default class Timeline {
       }
 
       // 名字恢复为第一个变体的名字
-      nameText.innerText = item.variants[0].name.split(" - ")[0];
+      nameText.innerText = item.variants[0].name;
 
       this.engine.updateData(item.variants[0].data);
     });
