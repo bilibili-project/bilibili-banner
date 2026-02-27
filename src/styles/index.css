@@ -1,0 +1,309 @@
+/* Modern CSS Reset - 仅保留本项目需要的部分 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f7f8;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+img,
+video {
+  display: block;
+}
+
+:root {
+  --primary-color: #00aeec;
+  --bg-glass: rgba(255, 255, 255, 0.9);
+  --border-glass: rgba(255, 255, 255, 0.4);
+  --shadow-premium: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f6f7f8;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+#app {
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 160px;
+  background-color: #fff;
+}
+
+.layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img,
+video {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 一级：年份选择器 */
+#yearBox {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: safe center;
+  gap: 36px;
+  padding: 14px 0 10px;
+  background: #fff;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+#yearBox::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.year-item {
+  font-size: 22px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+}
+
+.year-item:hover {
+  color: var(--primary-color);
+}
+
+.year-item.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+/* 变体下拉菜单（position: fixed，通过 JS .visible 类控制，脱离 overflow 容器） */
+.variant-dropdown {
+  position: fixed;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* 小三角箭头 */
+.variant-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+}
+
+/* JS 控制显示 */
+.variant-dropdown.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(4px);
+}
+
+.variant-item {
+  color: #666;
+  font-size: 13px;
+  padding: 8px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+}
+
+.variant-item:hover {
+  background: #f4f5f7;
+  color: var(--primary-color);
+}
+
+.variant-item.active {
+  color: var(--primary-color);
+  font-weight: bold;
+  background: #e7f6fd;
+}
+
+/* 二级：Banner 详情轴 */
+#selectBox {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: safe center;
+  gap: 0;
+  width: 100%;
+  overflow-x: auto;
+  padding: 16px 50px 20px;
+  background: #fff;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+#selectBox::-webkit-scrollbar {
+  display: none;
+}
+
+/* 详情轨道线 */
+#selectBox::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 64px; /* 固定在顶部下方，紧跟文字 */
+  height: 1px;
+  background: #eee;
+  z-index: 0;
+}
+
+/* 详情项 */
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 59px; /* 对齐轨道线中心 */
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.timeline-item.active::before {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(0, 174, 236, 0.4);
+}
+
+.item-content {
+  position: relative; /* 为下拉菜单提供定位基准 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px; /* 撑开文字与轨道线的间距 */
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.item-date {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.item-name {
+  font-size: 14px;
+  color: #444;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+.timeline-item:hover .item-content,
+.timeline-item.active .item-content {
+  opacity: 1;
+}
+
+.timeline-item.active .item-name {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 多变体指示箭头（SVG 注入） */
+.variant-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3px;
+  width: 14px;
+  height: 14px;
+  opacity: 0.4;
+  color: #444;
+  transition:
+    color 0.2s,
+    opacity 0.2s;
+}
+
+.has-variants:hover .variant-arrow,
+.has-variants.active .variant-arrow {
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+/* 单视频模式容器 - 旧版 banner（2021-2022）*/
+.simple-video-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* 宽度不足时截断，不缩小 */
+}
+
+.simple-video-container video {
+  flex-shrink: 0; /* 禁止视频缩小 */
+  width: 100%; /* 撑满容器宽度 */
+  height: 160px; /* 固定高度与 #app 一致 */
+  object-fit: cover; /* 等比缩放铺满，超出部分由容器 overflow:hidden 截断 */
+}
+
+/* 布局填充：撑满 banner + year + timeline 以下的剩余视口 */
+#spacer {
+  flex: 1;
+  background: #fff;
+}
