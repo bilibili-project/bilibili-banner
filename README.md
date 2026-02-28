@@ -6,7 +6,7 @@
 ---
 
 [在线预览](https://palxiao.github.io/bilibili-banner/)
-![cover](docs\image\cover.png)
+![cover](docs/image/cover.png)
 
 > 自动化通常只能完成 90% 的工作，有些参数需要点技巧进行手动调整，具体可参考下方说明和往期数据。
 >
