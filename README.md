@@ -5,6 +5,9 @@
 
 ---
 
+[在线预览](https://palxiao.github.io/bilibili-banner/)
+![cover](docs\image\cover.png)
+
 > 自动化通常只能完成 90% 的工作，有些参数需要点技巧进行手动调整，具体可参考下方说明和往期数据。
 >
 > 数据更新可能不及时或错过，如果你恰好发现B站更新头图，欢迎 PR ~
@@ -36,8 +39,6 @@ pnpm grab "打工松鼠 - 猫头鹰"
 
 然后运行 `pnpm dev`，访问 `http://localhost:5173` 即可看到最新的效果。
 
-> 可选：在 `config.js` 中修改配置（使用 fetch 引入 json）
-
 ### 手动调整参数
 
 打开 `assets` 目录下对应的 `data.json` 文件，修改其中每个对象的参数，刷新网页查看效果。
@@ -61,3 +62,8 @@ pnpm grab "打工松鼠 - 猫头鹰"
 [三分钟复刻B站首页动态Banner](https://juejin.cn/post/7288331623992688680)
 
 [一键自动1比1复刻 B 站首页动态 Banner](https://juejin.cn/post/7295720738568159267)
+
+### 鸣谢
+
+原项目：github.com/palxiao/bilibili-banner
+2020-10-01 - 2021-04-12 素材来源：https://github.com/Cloudtq/bilibili-banner/tree/main
