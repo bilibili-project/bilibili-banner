@@ -68,6 +68,7 @@ export default class BannerEngine {
 
   private _particleSystem: ParticleSystem | null = null;
   private _particleCanvas: HTMLCanvasElement | null = null;
+  private _currentUpdateId: number = 0;
 
   private state: EngineState = {
     initX: 0,
@@ -163,10 +164,59 @@ export default class BannerEngine {
   }
 
   /**
+   * 预加载所需资源
+   */
+  private async _preloadResources(dto: StandardBannerData): Promise<void> {
+    const resources: string[] = [];
+
+    if (dto.type === "simple-video") {
+      resources.push((dto.payload as SimpleVideoData).src);
+    } else if (dto.type === "parallax") {
+      const payload = dto.payload as Array<ParallaxLayer | ParticleLayerConfig>;
+      for (const item of payload) {
+        if (item.type === "image" || item.type === "video") {
+          resources.push((item as ParallaxLayer).src);
+        }
+      }
+    }
+
+    if (resources.length === 0) return;
+
+    const promises = resources.map((src) => {
+      return new Promise<void>((resolve) => {
+        const fullSrc = import.meta.env.BASE_URL + src.replace(/^\//, "");
+        if (
+          src.endsWith(".webm") ||
+          src.endsWith(".mp4") ||
+          src.match(/\.(webm|mp4|mov)$/i)
+        ) {
+          // 对视频进行 fetch 以利用浏览器缓存，避免页面白屏闪烁
+          fetch(fullSrc, { mode: "cors", cache: "force-cache" })
+            .then(() => resolve())
+            .catch(() => resolve());
+        } else {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = fullSrc;
+        }
+      });
+    });
+
+    // 兜底超时时间：最多允许等待 1.5 秒用于预加载
+    const timeout = new Promise<void>((resolve) => setTimeout(resolve, 1000));
+    await Promise.race([Promise.all(promises), timeout]);
+  }
+
+  /**
    * 更新数据源并重新渲染 (防腐层 + 策略路由)
    * @param {StandardBannerData} dto - 必须接受格式化后的标准数据
    */
-  public updateData(dto: StandardBannerData): void {
+  public async updateData(dto: StandardBannerData): Promise<void> {
+    const updateId = ++this._currentUpdateId;
+    await this._preloadResources(dto);
+    if (updateId !== this._currentUpdateId) return;
+
     this._stopAnimation();
     this._destroyVideos();
     this._particleSystem?.dispose();
