@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [meta]
+    branches: [main]
     paths:
       - "src/**"
       - "public/**"
