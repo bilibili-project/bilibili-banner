@@ -1,7 +1,7 @@
 [
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -10,7 +10,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -42.5, 0],
     "width": 1632,
     "height": 153,
@@ -20,7 +20,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -29,7 +29,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -63, -18],
     "width": 1728,
     "height": 162,
@@ -39,7 +39,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -48,7 +48,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 9.5, 0],
     "width": 1824,
     "height": 171,
@@ -57,7 +57,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -66,7 +66,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 8.5],
     "width": 1632,
     "height": 153,
@@ -75,7 +75,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 8.5, 0],
     "width": 1632,
     "height": 153,
@@ -84,7 +84,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 8.5, 0],
     "width": 1632,
     "height": 153,
@@ -94,7 +94,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 17, 0],
     "width": 1632,
     "height": 153,
@@ -103,7 +103,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 8.5, 0],
     "width": 1632,
     "height": 153,
@@ -112,7 +112,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 21, 21],
     "width": 1344,
     "height": 126,
@@ -121,7 +121,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -130,7 +130,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 17],
     "width": 1632,
     "height": 153,
@@ -139,7 +139,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -148,7 +148,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 34.4, 0],
     "width": 1651,
     "height": 155,
@@ -157,7 +157,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1632,
     "height": 153,
@@ -168,7 +168,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 17, 0],
     "width": 1632,
     "height": 153,
@@ -177,7 +177,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 30, 0],
     "width": 1920,
     "height": 180,
@@ -186,7 +186,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 15.3, 17],
     "width": 1632,
     "height": 153,
@@ -195,7 +195,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1920,
     "height": 180,

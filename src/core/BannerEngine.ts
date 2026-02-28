@@ -14,7 +14,7 @@ export interface BaseLayer {
   width: number;
   height: number;
   transform: number[]; // [a, b, c, d, tx, ty]
-  opacity?: [number, number];
+  opacity?: number[]; // [default, opLeft, opRight]
   blur?: number;
   a: number; // 补偿系数
   g?: number; // 视差系数
@@ -374,19 +374,25 @@ export default class BannerEngine {
       layer.style.transform = finalTransform;
 
       if (item.opacity) {
-        layer.style.opacity = String(
-          isHoming && moveX > 0
-            ? this._lerp(
-                Number(item.opacity[1]),
-                Number(item.opacity[0]),
-                progress as number,
-              )
-            : this._lerp(
-                Number(item.opacity[0]),
-                Number(item.opacity[1]),
-                (moveX / window.innerWidth) * 2,
-              ),
+        if (item.opacity.length !== 3) {
+          throw new Error(
+            `[BannerEngine] Invalid opacity length: expected 3, got ${item.opacity.length}`,
+          );
+        }
+        const opDef = item.opacity[0];
+        const opLeft = item.opacity[1];
+        const opRight = item.opacity[2];
+
+        const ratio = Math.min(
+          Math.abs((currentMoveX / window.innerWidth) * 2),
+          1,
         );
+        const targetOpacity =
+          currentMoveX < 0
+            ? this._lerp(opDef, opLeft, ratio)
+            : this._lerp(opDef, opRight, ratio);
+
+        layer.style.opacity = String(targetOpacity);
       }
     }
   }

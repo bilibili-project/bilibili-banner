@@ -1,7 +1,7 @@
 [
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -10,7 +10,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -9, 0],
     "width": 1728,
     "height": 162,
@@ -19,7 +19,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 90, 0],
     "width": 1680,
     "height": 158,
@@ -28,7 +28,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -37,7 +37,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 540, 0],
     "width": 1728,
     "height": 162,
@@ -46,7 +46,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -55,7 +55,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -64,7 +64,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -73,7 +73,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -8, 2],
     "width": 1536,
     "height": 144,
@@ -82,7 +82,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -91,7 +91,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -100,7 +100,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -109,7 +109,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1680,
     "height": 158,
@@ -118,7 +118,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 9, 0],
     "width": 1680,
     "height": 158,
@@ -127,7 +127,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -136,7 +136,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -145,7 +145,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -154,7 +154,7 @@
   },
   {
     "tagName": "video",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 133.3, 10.75],
     "width": 96,
     "height": 135,
@@ -163,7 +163,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -172,7 +172,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1680,
     "height": 158,
@@ -181,7 +181,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1680,
     "height": 158,
@@ -190,7 +190,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -199,7 +199,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 22.5, 0],
     "width": 1728,
     "height": 162,
@@ -208,7 +208,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -217,7 +217,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1941,
     "height": 245,
@@ -227,7 +227,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -236,7 +236,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 0],
     "width": 1728,
     "height": 162,
@@ -245,7 +245,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 162, 0],
     "width": 1728,
     "height": 162,
@@ -254,7 +254,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, 9.8],
     "width": 1882,
     "height": 176,
@@ -263,7 +263,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -14.4, 9.6],
     "width": 1843,
     "height": 173,
@@ -272,7 +272,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, -14.4, 9.6],
     "width": 1792,
     "height": 168,
@@ -281,7 +281,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 25, 10],
     "width": 1867,
     "height": 175,
@@ -290,7 +290,7 @@
   },
   {
     "tagName": "img",
-    "opacity": ["1", "1"],
+    "opacity": [1, 1, 1],
     "transform": [1, 0, 0, 1, 0, -11],
     "width": 2135,
     "height": 270,

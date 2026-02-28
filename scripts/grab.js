@@ -49,7 +49,7 @@ class BannerGrabber {
     this.saveFolder = path.resolve(__dirname, `../public/assets/${this.date}`);
     this.dataLoaderPath = path.resolve(
       __dirname,
-      "../src/core/BannerDataLoader.js",
+      "../src/core/BannerDataLoader.ts",
     );
   }
 
@@ -120,13 +120,30 @@ class BannerGrabber {
 
       // 模拟鼠标偏移
       const element = await page.$(".animated-banner");
-      const { x, y } = await element.boundingBox();
-      await page.mouse.move(x, y + 50);
-      await page.mouse.move(x + 1000, y, { steps: 1 });
-      await sleep(1200);
+      const { x, y, width } = await element.boundingBox();
+      const centerX = x + width / 2;
+      const centerY = y + 50;
 
-      // 第二遍：计算各图层加速度参数
-      await this._calculateAcceleration(page);
+      // ====== 右移 ======
+      await page.mouse.move(centerX, centerY);
+      await sleep(500);
+      await page.mouse.move(centerX + 1000, centerY, { steps: 5 });
+      await sleep(1500);
+      await this._calculateOffsetParams(page, "right", 1000);
+
+      // 离开恢复
+      await page.mouse.move(centerX, centerY - 200);
+      await sleep(500);
+
+      // ====== 左移 ======
+      await page.mouse.move(centerX, centerY);
+      await sleep(500);
+      await page.mouse.move(centerX - 1000, centerY, { steps: 5 });
+      await sleep(1500);
+      await this._calculateOffsetParams(page, "left", -1000);
+
+      // 综合处理
+      this._finalizeData();
     } catch (error) {
       console.error("❌ 抓取出错:", error);
     } finally {
@@ -149,7 +166,11 @@ class BannerGrabber {
 
         return {
           tagName: child.tagName.toLowerCase(),
-          opacity: [style.opacity, style.opacity],
+          opacity: [
+            parseFloat(style.opacity),
+            parseFloat(style.opacity),
+            parseFloat(style.opacity),
+          ],
           transform: [
             matrix.a,
             matrix.b,
@@ -172,21 +193,75 @@ class BannerGrabber {
     }
   }
 
-  /**
-   * 模拟偏移后，回读各图层位置，计算加速度参数 a
-   * @param {import('puppeteer').Page} page
-   * @private
-   */
-  async _calculateAcceleration(page) {
+  async _calculateOffsetParams(page, direction, moveDist) {
     const layerElements = await page.$$(".animated-banner .layer");
     for (let i = 0; i < layerElements.length; i++) {
-      const skewX = await page.evaluate((el) => {
+      const state = await page.evaluate((el) => {
         const style = window.getComputedStyle(el.firstElementChild);
         const matrix = new DOMMatrix(style.transform);
-        return matrix.e; // 直接获取水平偏移量
+        let blur = 0;
+        const filterStr = style.filter;
+        if (filterStr && filterStr !== "none") {
+          const match = filterStr.match(/blur\((.+?)px\)/);
+          if (match) blur = parseFloat(match[1]);
+        }
+        return {
+          skewX: matrix.e,
+          opacity: parseFloat(style.opacity),
+          blur: blur,
+        };
       }, layerElements[i]);
 
-      this.data[i].a = (skewX - this.data[i].transform[4]) / 1000;
+      const item = this.data[i];
+      if (!item.temp) item.temp = {};
+
+      const origX = item.transform[4] || 0;
+      const a = (state.skewX - origX) / moveDist;
+
+      item.temp[direction] = {
+        a: a,
+        opacity: state.opacity,
+        blur: state.blur,
+      };
+    }
+  }
+
+  _finalizeData() {
+    // 假设 1650 屏幕宽度下偏移 1000 的拉扯比例
+    const ratio = Math.min(1000 / (1650 / 2), 1);
+
+    for (const item of this.data) {
+      if (!item.temp) continue;
+
+      const aRight = item.temp.right.a || 0;
+      const aLeft = item.temp.left.a || 0;
+      item.a = Number(((aRight + aLeft) / 2).toFixed(5));
+
+      const defOp = item.opacity[0];
+      const opRight =
+        item.temp.right.opacity !== undefined &&
+        !Number.isNaN(item.temp.right.opacity)
+          ? item.temp.right.opacity
+          : defOp;
+      const opLeft =
+        item.temp.left.opacity !== undefined &&
+        !Number.isNaN(item.temp.left.opacity)
+          ? item.temp.left.opacity
+          : defOp;
+
+      let finalOpRight = defOp + (opRight - defOp) / ratio;
+      let finalOpLeft = defOp + (opLeft - defOp) / ratio;
+
+      finalOpRight = Math.max(0, Math.min(1, finalOpRight));
+      finalOpLeft = Math.max(0, Math.min(1, finalOpLeft));
+
+      item.opacity = [
+        defOp,
+        Number(finalOpLeft.toFixed(2)),
+        Number(finalOpRight.toFixed(2)),
+      ];
+
+      delete item.temp;
     }
   }
 
@@ -222,23 +297,16 @@ class BannerGrabber {
     console.log(`💾 已写入 ${outputPath}`);
   }
 
-  /**
-   * 在 BannerDataLoader.js 的 MANIFEST 末尾插入新条目
-   * @private
-   */
   _updateManifest() {
     let code = fs.readFileSync(this.dataLoaderPath, "utf8");
 
-    const newEntry = `    { name: "${this.bannerName}", date: "${this.date}" },`;
+    const newEntry = `    { date: "${this.date}", variants: [{ name: "${this.bannerName}" }] },`;
 
-    // 在 MANIFEST 数组闭合括号前插入新条目
-    code = code.replace(
-      /(\s*\];\s*\/\*\*\s*\*\s*并行加载)/,
-      `\n${newEntry}\n  $1`,
-    );
+    // 在 ADD_NEW_DATA 注释前插入新条目
+    code = code.replace(/(\s*\/\/\s*ADD_NEW_DATA)/, `\n${newEntry}$1`);
 
     fs.writeFileSync(this.dataLoaderPath, code);
-    console.log(`📝 已更新 BannerDataLoader.js MANIFEST`);
+    console.log(`📝 已更新 BannerDataLoader.ts MANIFEST`);
   }
 }
 

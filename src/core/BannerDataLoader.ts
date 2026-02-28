@@ -52,11 +52,11 @@ export default class BannerDataLoader {
     },
     {
       date: "2021-01-01",
-      variants: [{ name: "冬日小窗 - 雪地松影", path: "2021-01-01-winter" }],
+      variants: [{ name: "冬日公园 - 雪仗酣战", path: "2021-01-01-winter" }],
     },
     {
       date: "2021-04-12",
-      variants: [{ name: "初春回暖 - 粉樱花海", path: "2021-04-12-spring" }],
+      variants: [{ name: "十里桃花 - 河畔春游", path: "2021-04-12-spring" }],
     },
     {
       date: "2021-08-01",
@@ -99,10 +99,11 @@ export default class BannerDataLoader {
     { date: "2024-06-26", variants: [{ name: "海洋机场 - 启程远洋" }] },
     { date: "2024-09-26", variants: [{ name: "魔法少女 - 飞掠高架桥" }] },
     { date: "2024-12-26", variants: [{ name: "龙吟雪岭 - 缆车飞驰" }] },
-    { date: "2025-04-05", variants: [{ name: "蒲英絮舞 - 魔女游春" }] },
+    { date: "2025-04-05", variants: [{ name: "蒲英絮舞 - 掠影逐云" }] },
     { date: "2025-06-15", variants: [{ name: "清凉一夏 - 水漫街头" }] },
     { date: "2025-09-10", variants: [{ name: "弯月流星 - 手捧星光" }] },
     { date: "2026-01-09", variants: [{ name: "雪林候车 - 学子归途" }] },
+    // ADD_NEW_DATA
   ];
 
   /**
