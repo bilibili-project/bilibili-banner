@@ -1,3 +1,5 @@
+import type { ParallaxLayer, StandardBannerData } from "./BannerEngine";
+
 /**
  * Banner 数据加载器
  * 通过静态清单（MANIFEST）统一管理所有 Banner 元数据，
@@ -5,18 +7,41 @@
  *
  * 新增一期 Banner 时，只需在 MANIFEST 末尾追加一条记录即可。
  */
+
+// 变体定义接口
+export interface VariantEntry {
+  name: string;
+  path?: string;
+  data?: unknown; // 解析后的原始JSON数据，将作为未知结构向下传递
+}
+
+// 原始清单数据结构
+export interface ManifestEntry {
+  date: string;
+  variants: VariantEntry[];
+}
+
+// 经过网络加载解析后带有 payload 的返回结构
+export interface LoadedVariant {
+  name: string;
+  path: string;
+  data: StandardBannerData;
+}
+
+export interface LoadedBannerData {
+  date: string;
+  variants: LoadedVariant[];
+}
+
 export default class BannerDataLoader {
   /**
-   * 所有 Banner 元数据清单，按时间升序排列。
    * 所有 Banner 元数据清单，按时间升序排列。
    * - date: 上线日期（YYYY-MM-DD），用于时间轴分组显示
    * - variants: 包含该日期下所有变体的数组。
    *     - name: 变体名称，也是单变体时在时间轴上展示的默认名字
    *     - path: (可选) 数据目录名。若不填则默认使用外层 date
-   *
-   * @type {Array<{date: string, variants: Array<{name: string, path?: string}>}>}
    */
-  static MANIFEST = [
+  public static readonly MANIFEST: ManifestEntry[] = [
     {
       date: "2021-08-01",
       variants: [
@@ -66,26 +91,71 @@ export default class BannerDataLoader {
 
   /**
    * 按新的结构统一并行加载所有变体的数据。
-   * @returns {Promise<Array<{date: string, variants: Array<{name: string, path: string, data: object}>}>>}
+   * @returns {Promise<LoadedBannerData[]>}
    */
-  async load() {
+  public async load(): Promise<LoadedBannerData[]> {
     const tasks = BannerDataLoader.MANIFEST.map(async (entry) => {
       // 遍历加载该日期下的所有变体
       const variantTasks = entry.variants.map((v) => {
         const fetchPath = v.path || entry.date;
         return fetch(`${import.meta.env.BASE_URL}assets/${fetchPath}/data.json`)
           .then((res) => res.json())
-          .then((data) => ({ name: v.name, path: fetchPath, data }));
+          .then(
+            (rawData) =>
+              ({
+                name: v.name,
+                path: fetchPath,
+                data: this._normalizeData(rawData),
+              }) as LoadedVariant,
+          );
       });
 
-      const resolvedVariants = await Promise.all(variantTasks);
+      const resolvedVariants: LoadedVariant[] = await Promise.all(variantTasks);
 
       return {
         date: entry.date,
         variants: resolvedVariants,
-      };
+      } as LoadedBannerData;
     });
 
     return Promise.all(tasks);
+  }
+
+  // ─────────────────────── 防腐适配器 (Anti-Corruption) ───────────────────────
+
+  private _normalizeData(rawData: unknown): StandardBannerData {
+    // 嗅探是否为纯视频格式
+    if (
+      rawData &&
+      typeof rawData === "object" &&
+      !Array.isArray(rawData) &&
+      (rawData as { mode?: string }).mode === "simple-video"
+    ) {
+      return {
+        type: "simple-video",
+        payload: {
+          mode: "simple-video",
+          src: (rawData as { src: string }).src,
+        },
+      };
+    }
+
+    // 处理传统数组格式
+    if (Array.isArray(rawData)) {
+      const payload: ParallaxLayer[] = rawData.map((item) => {
+        const isVideo = item.tagName === "video";
+        return {
+          ...item,
+          type: isVideo ? "video" : "image",
+        } as ParallaxLayer;
+      });
+      return {
+        type: "parallax",
+        payload,
+      };
+    }
+
+    // 回退安全默认值
+    return { type: "parallax", payload: [] };
   }
 }

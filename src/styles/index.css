@@ -10,8 +10,6 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-body {
   display: flex;
   flex-direction: column;
   background-color: #f6f7f8;
@@ -31,15 +29,6 @@ video {
   --shadow-premium: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f6f7f8;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-}
-
 #app {
   flex-shrink: 0;
   position: relative;
@@ -47,6 +36,7 @@ body {
   width: 100%;
   height: 160px;
   background-color: #fff;
+  contain: paint layout; /* Micro-service isolation for rendering */
 }
 
 .layer {
@@ -58,12 +48,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform, opacity; /* GPU Layer Promotion */
+  backface-visibility: hidden; /* Force Hardware Acceleration */
 }
 
 img,
 video {
   user-select: none;
   pointer-events: none;
+  -webkit-user-drag: none; /* Prevent Native Drag Ghosting */
 }
 
 /* 一级：年份选择器 */
@@ -89,7 +82,9 @@ video {
   font-weight: bold;
   color: #999;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-bottom-color 0.3s ease; /* Precision Transition */
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
 }
@@ -207,7 +202,6 @@ video {
   align-items: center;
   padding: 0 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
   min-width: 110px;
   flex-shrink: 0;
 }
@@ -223,7 +217,10 @@ video {
   background: #fff;
   border: 2px solid #ddd;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   z-index: 5;
 }
 
@@ -240,7 +237,7 @@ video {
   align-items: center;
   margin-bottom: 12px; /* 撑开文字与轨道线的间距 */
   opacity: 0.6;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease; /* Precision Transition */
 }
 
 .item-date {
@@ -253,6 +250,9 @@ video {
   color: #444;
   margin-top: 4px;
   white-space: nowrap;
+  transition:
+    color 0.3s ease,
+    font-weight 0.3s ease;
 }
 
 .timeline-item:hover .item-content,
