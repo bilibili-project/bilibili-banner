@@ -307,3 +307,10 @@ video {
   flex: 1;
   background: #fff;
 }
+
+.particle-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}

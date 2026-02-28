@@ -3,8 +3,11 @@
  * 负责渲染图层、响应鼠标交互，并驱动视差/回正动画。
  */
 
+import ParticleSystem, { type ParticleLayerConfig } from "./ParticleSystem";
+
 export type LayerType = "image" | "video";
 export type BannerMode = "simple-video" | "parallax";
+export type { ParticleLayerConfig };
 
 export interface BaseLayer {
   src: string;
@@ -40,7 +43,7 @@ export interface SimpleVideoData {
 
 export interface StandardBannerData {
   type: BannerMode;
-  payload: ParallaxLayer[] | SimpleVideoData;
+  payload: Array<ParallaxLayer | ParticleLayerConfig> | SimpleVideoData;
 }
 
 interface EngineState {
@@ -62,6 +65,9 @@ export default class BannerEngine {
   private compensate: number = 1;
   private simpleVideoMode: boolean = false;
   private static readonly DEG2RAD: number = 180 / Math.PI;
+
+  private _particleSystem: ParticleSystem | null = null;
+  private _particleCanvas: HTMLCanvasElement | null = null;
 
   private state: EngineState = {
     initX: 0,
@@ -129,7 +135,7 @@ export default class BannerEngine {
       videos.forEach((video) => {
         video.pause();
         video.removeAttribute("src");
-        video.load();
+        // 移除 video.load() 以避免某些浏览器下的同步阻塞卡顿
       });
     }
   }
@@ -140,6 +146,9 @@ export default class BannerEngine {
   public destroy(): void {
     this._stopAnimation();
     this._destroyVideos();
+    this._particleSystem?.dispose();
+    this._particleSystem = null;
+    this._particleCanvas = null;
     if (this.container) {
       this.container.removeEventListener("mouseenter", this._boundMouseEnter);
       this.container.removeEventListener("mousemove", this._boundMouseMove);
@@ -160,10 +169,10 @@ export default class BannerEngine {
   public updateData(dto: StandardBannerData): void {
     this._stopAnimation();
     this._destroyVideos();
+    this._particleSystem?.dispose();
+    this._particleSystem = null;
+    this._particleCanvas = null;
 
-    if (this.container) {
-      this.container.innerHTML = "";
-    }
     this.layers = null;
 
     // 策略路由
@@ -173,12 +182,32 @@ export default class BannerEngine {
         this.allLayersData = [];
         this._renderSimpleVideo(dto.payload as SimpleVideoData);
         break;
-      case "parallax":
+      case "parallax": {
         this.simpleVideoMode = false;
         this._calcCompensate();
-        this._initParallaxData(dto.payload as ParallaxLayer[]);
+
+        // 分离粒子配置与正常图层
+        const rawPayload = dto.payload as Array<
+          ParallaxLayer | ParticleLayerConfig
+        >;
+        const parallaxLayers = rawPayload.filter(
+          (item): item is ParallaxLayer => item.type !== "particle",
+        );
+        const particleConfig =
+          rawPayload.find(
+            (item): item is ParticleLayerConfig => item.type === "particle",
+          ) || null;
+        this._initParallaxData(parallaxLayers);
         this._renderParallax();
+
+        // 启动粒子系统
+        if (particleConfig && this.container && this._particleCanvas) {
+          const ps = new ParticleSystem(this._particleCanvas, particleConfig);
+          this._particleSystem = ps;
+          ps.start();
+        }
         break;
+      }
       default:
         console.warn("[BannerEngine] Unknown banner target type.");
     }
@@ -238,7 +267,10 @@ export default class BannerEngine {
     video.playsInline = true;
 
     wrapper.appendChild(video);
-    this.container.appendChild(wrapper);
+    if (this.container) {
+      this.container.innerHTML = "";
+      this.container.appendChild(wrapper);
+    }
   }
 
   /**
@@ -284,8 +316,19 @@ export default class BannerEngine {
       fragment.appendChild(layer);
     }
 
-    this.container.appendChild(fragment);
-    this.layers = this.container.querySelectorAll(".layer");
+    if (this.container) {
+      this.container.innerHTML = "";
+      this.container.appendChild(fragment);
+      this.layers = this.container.querySelectorAll(".layer");
+
+      // 创建粒子画布（浮层，不干扰鼠标交互）
+      const canvas = document.createElement("canvas");
+      canvas.width = this.container.clientWidth;
+      canvas.height = this.container.clientHeight;
+      canvas.className = "particle-canvas";
+      this.container.appendChild(canvas);
+      this._particleCanvas = canvas;
+    }
   }
 
   /**
@@ -375,6 +418,12 @@ export default class BannerEngine {
     this._calcCompensate();
     this._initParallaxData(this.allLayersData);
     this._renderParallax();
+    if (this.container && this._particleCanvas) {
+      this._particleSystem?.resize(
+        this.container.clientWidth,
+        this.container.clientHeight,
+      );
+    }
   }
 
   private _easeOutQuart(x: number): number {

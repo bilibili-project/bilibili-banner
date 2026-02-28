@@ -1,15 +1,14 @@
 import type { LoadedBannerData, LoadedVariant } from "../core/BannerDataLoader";
-import type { StandardBannerData } from "../core/BannerEngine";
 
 export interface BannerTimeLineOptions {
   containerId?: string;
-  onVariantSelect?: (data: StandardBannerData) => void;
+  onVariantSelect?: (variant: LoadedVariant) => void;
 }
 
 export default class BannerTimeLine {
   private container: HTMLElement | null;
   private _bodyDropdowns: HTMLDivElement[] = [];
-  private onVariantSelect?: (data: StandardBannerData) => void;
+  private onVariantSelect?: (variant: LoadedVariant) => void;
   private _itemDataMap: WeakMap<HTMLElement, LoadedBannerData> = new WeakMap();
   private _activeDropdownTimer?: number;
 
@@ -52,20 +51,38 @@ export default class BannerTimeLine {
   /**
    * 接收过滤好的特定年份的变体数据进行渲染
    * @param {LoadedBannerData[]} filteredData
+   * @param {string} [targetPath] - 期望初始选中的变体路径
    */
-  public render(filteredData: LoadedBannerData[]): void {
+  public render(filteredData: LoadedBannerData[], targetPath?: string): void {
     if (!this.container) return;
 
     this._cleanupDropdowns();
     this.container.innerHTML = "";
 
+    // 计算初始选中的索引
+    let activeItemIndex = filteredData.length - 1;
+    let activeVariantIndex = 0;
+
+    if (targetPath) {
+      filteredData.forEach((item, i) => {
+        const vIdx = item.variants.findIndex((v) => v.path === targetPath);
+        if (vIdx !== -1) {
+          activeItemIndex = i;
+          activeVariantIndex = vIdx;
+        }
+      });
+    }
+
     filteredData.forEach((item, index) => {
-      const isLatest = index === filteredData.length - 1;
-      const itemEl = this._createTimelineItem(item, isLatest);
+      const isActive = index === activeItemIndex;
+      const itemEl = this._createTimelineItem(
+        item,
+        isActive,
+        isActive ? activeVariantIndex : 0,
+      );
       this.container?.appendChild(itemEl);
 
-      // 初次渲染或者按年切换时，选中最后一项并居中
-      if (isLatest) {
+      if (isActive) {
         setTimeout(() => {
           itemEl.scrollIntoView({
             behavior: "smooth",
@@ -76,11 +93,11 @@ export default class BannerTimeLine {
       }
     });
 
-    // 默认展示该年最新项的第一个变体
+    // 展示选定项的数据
     if (filteredData.length > 0) {
-      const latestItem = filteredData[filteredData.length - 1];
+      const targetItem = filteredData[activeItemIndex];
       if (this.onVariantSelect) {
-        this.onVariantSelect(latestItem.variants[0].data);
+        this.onVariantSelect(targetItem.variants[activeVariantIndex]);
       }
     }
   }
@@ -104,6 +121,7 @@ export default class BannerTimeLine {
   private _createTimelineItem(
     item: LoadedBannerData,
     isActive: boolean,
+    activeVariantIndex: number = 0,
   ): HTMLDivElement {
     const itemEl = document.createElement("div");
     itemEl.className = `timeline-item ${isActive ? "active" : ""}`;
@@ -119,7 +137,7 @@ export default class BannerTimeLine {
     name.className = "item-name";
 
     const nameText = document.createElement("span");
-    nameText.innerText = item.variants[0].name;
+    nameText.innerText = item.variants[activeVariantIndex].name;
     name.appendChild(nameText);
 
     content.appendChild(dateStr);
@@ -149,7 +167,7 @@ export default class BannerTimeLine {
 
       item.variants.forEach((variant: LoadedVariant, index: number) => {
         const btn = document.createElement("div");
-        btn.className = `variant-item ${index === 0 && isActive ? "active" : ""}`;
+        btn.className = `variant-item ${index === activeVariantIndex && isActive ? "active" : ""}`;
         btn.innerText = variant.name;
 
         btn.addEventListener("click", (e: MouseEvent) => {
@@ -169,7 +187,7 @@ export default class BannerTimeLine {
 
           nameText.innerText = variant.name;
           if (this.onVariantSelect) {
-            this.onVariantSelect(variant.data);
+            this.onVariantSelect(variant);
           }
         });
 
@@ -219,7 +237,7 @@ export default class BannerTimeLine {
     if (nameText) nameText.innerText = itemData.variants[0].name;
 
     if (this.onVariantSelect) {
-      this.onVariantSelect(itemData.variants[0].data as StandardBannerData);
+      this.onVariantSelect(itemData.variants[0]);
     }
   }
 

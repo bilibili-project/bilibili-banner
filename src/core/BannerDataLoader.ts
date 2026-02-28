@@ -1,4 +1,8 @@
-import type { ParallaxLayer, StandardBannerData } from "./BannerEngine";
+import type {
+  ParallaxLayer,
+  ParticleLayerConfig,
+  StandardBannerData,
+} from "./BannerEngine";
 
 /**
  * Banner 数据加载器
@@ -42,6 +46,18 @@ export default class BannerDataLoader {
    *     - path: (可选) 数据目录名。若不填则默认使用外层 date
    */
   public static readonly MANIFEST: ManifestEntry[] = [
+    {
+      date: "2020-10-01",
+      variants: [{ name: "仲秋流金 - 层林尽染", path: "2020-10-01-autumn" }],
+    },
+    {
+      date: "2021-01-01",
+      variants: [{ name: "冬日小窗 - 雪地松影", path: "2021-01-01-winter" }],
+    },
+    {
+      date: "2021-04-12",
+      variants: [{ name: "初春回暖 - 粉樱花海", path: "2021-04-12-spring" }],
+    },
     {
       date: "2021-08-01",
       variants: [
@@ -142,7 +158,11 @@ export default class BannerDataLoader {
 
     // 处理传统数组格式
     if (Array.isArray(rawData)) {
-      const payload: ParallaxLayer[] = rawData.map((item) => {
+      const payload = rawData.map((item) => {
+        // 粒子层配置直接透传
+        if (item.type === "particle") {
+          return item as ParticleLayerConfig;
+        }
         const isVideo = item.tagName === "video";
         return {
           ...item,

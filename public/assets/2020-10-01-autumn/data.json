@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-1.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.013,
+    "opacity": [1, 1],
+    "g": 0
+  },
+  {
+    "id": 2,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-2.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.0169,
+    "opacity": [1, 1],
+    "g": 0
+  },
+  {
+    "id": 3,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-3.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.02197,
+    "opacity": [1, 1],
+    "g": 0
+  },
+  {
+    "id": 4,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-4.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.02856,
+    "opacity": [1, 1],
+    "g": 0
+  },
+  {
+    "id": 5,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-5.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.03713,
+    "opacity": [1, 1],
+    "g": 0
+  },
+  {
+    "id": 6,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-6.webp",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.04827,
+    "opacity": [1, 1],
+    "g": 0,
+    "blur": 2
+  }
+]
