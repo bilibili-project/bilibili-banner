@@ -172,9 +172,9 @@
       "/assets/2021-04-12-spring/f1.png",
       "/assets/2021-04-12-spring/f2.png"
     ],
-    "count": 10,
-    "speedRange": [0.6, 1],
-    "angleRange": [15, 40],
+    "count": 8,
+    "speedRange": [0.45, 0.65],
+    "angleRange": [15, 30],
     "sizeRange": [0.03, 0.05],
     "opacityRange": [0.5, 0.9]
   }
