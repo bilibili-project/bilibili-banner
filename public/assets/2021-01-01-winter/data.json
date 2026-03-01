@@ -78,5 +78,14 @@
     "a": 0.052,
     "opacity": [0, 0, 1],
     "g": 0
+  },
+  {
+    "type": "particle",
+    "srcs": ["/assets/2021-01-01-winter/snowflake.png"],
+    "count": 7,
+    "speedRange": [0.1, 0.2],
+    "angleRange": [170, 190],
+    "sizeRange": [0.03, 0.05],
+    "opacityRange": [0.5, 0.8]
   }
 ]

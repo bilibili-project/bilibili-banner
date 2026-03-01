@@ -13,12 +13,34 @@
   {
     "id": 2,
     "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-2-bi.png",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.0169,
+    "opacity": [0, 1, 0],
+    "g": 0
+  },
+  {
+    "id": 21,
+    "tagName": "img",
+    "src": "/assets/2020-10-01-autumn/bilibili-autumn-2-zha.png",
+    "width": 1920,
+    "height": 180,
+    "transform": [1, 0, 0, 1, 0, 0],
+    "a": 0.0169,
+    "opacity": [1, 0, 0],
+    "g": 0
+  },
+  {
+    "id": 22,
+    "tagName": "img",
     "src": "/assets/2020-10-01-autumn/bilibili-autumn-2.webp",
     "width": 1920,
     "height": 180,
     "transform": [1, 0, 0, 1, 0, 0],
     "a": 0.0169,
-    "opacity": [1, 1, 1],
+    "opacity": [0, 0, 1],
     "g": 0
   },
   {
