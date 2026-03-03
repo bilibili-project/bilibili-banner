@@ -58,10 +58,13 @@ class BannerGrabber {
    */
   async run() {
     this._prepareFolder();
-    await this._scrape();
-    this._writeDataJson();
-    this._updateManifest();
-    console.log("✅ 完成！运行 pnpm dev 查看效果。");
+    if (await this._scrape()) {
+      this._writeDataJson();
+      this._updateManifest();
+      console.log("✅ 完成！运行 pnpm dev 查看效果。");
+    } else {
+      console.log("⚠️ 抓取已取消或终止（未检测到动态 Banner）。");
+    }
   }
 
   // ─────────────── 私有方法 ───────────────
@@ -107,11 +110,27 @@ class BannerGrabber {
       await page.goto("https://www.bilibili.com/", {
         waitUntil: "domcontentloaded",
       });
-      await sleep(1000);
-      await page.goto("https://www.bilibili.com/", {
-        waitUntil: "domcontentloaded",
-      });
-      await page.waitForSelector(".animated-banner");
+
+      console.log("🔍 正在检测动态 Banner...");
+      try {
+        // 第一次检测，较短超时
+        await page.waitForSelector(".animated-banner", { timeout: 3000 });
+      } catch (e) {
+        console.log("🔄 未立即检测到动态 Banner，尝试刷新页面...");
+        await page.goto("https://www.bilibili.com/", {
+          waitUntil: "domcontentloaded",
+        });
+        await sleep(1000);
+        try {
+          // 第二次检测
+          await page.waitForSelector(".animated-banner", { timeout: 3000 });
+        } catch (e2) {
+          console.log(
+            "ℹ️ 仍未检测到动态 Banner 元素。当前页面可能使用的是静态图片或处于特殊活动期间，抓取终止。",
+          );
+          return false;
+        }
+      }
       await sleep(2000);
 
       // 第一遍：获取图层基础数据并下载资源
