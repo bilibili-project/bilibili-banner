@@ -96,7 +96,8 @@
     "width": 1664,
     "height": 156,
     "src": "./assets/2024-06-26/a43c6833d262301373234ffbd6934559d2ce7fb2.png@1c.webp",
-    "a": 0.0315152
+    "a": 0.0315152,
+    "g": 0.02
   },
   {
     "tagName": "img",
@@ -150,7 +151,8 @@
     "width": 1664,
     "height": 156,
     "src": "./assets/2024-06-26/142a486b8dd500a626a60b68ad993af8dabc8b55.png@1c.webp",
-    "a": 0.0945455
+    "a": 0.0945455,
+    "g": 0.05
   },
   {
     "tagName": "img",
@@ -159,7 +161,8 @@
     "width": 1664,
     "height": 156,
     "src": "./assets/2024-06-26/bb6266e1525a51f7920fc8881e47cadeee271b0c.png@1c.webp",
-    "a": 0.110303
+    "a": 0.110303,
+    "g": 0.02
   },
   {
     "tagName": "img",
