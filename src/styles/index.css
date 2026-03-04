@@ -105,7 +105,7 @@ video {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 6px 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   min-width: 80px;
@@ -119,35 +119,23 @@ video {
   pointer-events: none;
 }
 
-/* 小三角箭头 */
-.variant-dropdown::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #fff;
-}
-
 /* JS 控制显示 */
 .variant-dropdown.visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(-50%) translateY(-8px);
 }
 
 .variant-item {
   color: #666;
   font-size: 13px;
-  padding: 8px 16px;
+  padding: 6px 16px;
+  margin: 4px;
+  border-radius: 4px;
   text-align: center;
   cursor: pointer;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: color 0.2s;
   white-space: nowrap;
 }
 
