@@ -41,7 +41,7 @@ pnpm grab "打工松鼠 - 猫头鹰"
 
 ### 手动调整参数
 
-打开 `assets` 目录下对应的 `data.json` 文件，修改其中每个对象的参数，刷新网页查看效果。
+打开 `public/assets` 目录下对应的 `data.json` 文件，修改其中每个对象的参数，刷新网页查看效果。
 
 目前支持参数如下：
 
@@ -65,5 +65,6 @@ pnpm grab "打工松鼠 - 猫头鹰"
 
 ### 鸣谢
 
-原项目：github.com/palxiao/bilibili-banner
-2020-10-01 - 2021-04-12 素材来源：https://github.com/Cloudtq/bilibili-banner/tree/main
+- 原项目：github.com/palxiao/bilibili-banner
+
+- 2020-10-01 - 2021-04-12 素材来源：https://github.com/Cloudtq/bilibili-banner/tree/main
