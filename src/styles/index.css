@@ -105,7 +105,8 @@ video {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 0;
+  padding: 4px;
+  gap: 4px;
   display: flex;
   flex-direction: column;
   min-width: 80px;
@@ -131,7 +132,6 @@ video {
   color: #666;
   font-size: 13px;
   padding: 6px 16px;
-  margin: 4px;
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
